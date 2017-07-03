@@ -20,8 +20,9 @@
         <activity android:name=".Win" />
         <activity android:name=".Normal" />
         <activity android:name=".Intro" />
-        <activity android:name=".Modes"/>
-        <activity android:name=".Direction"/>
+        <activity android:name=".Modes" />
+        <activity android:name=".Direction" />
+        <activity android:name=".Gloo"></activity>
     </application>
 
 </manifest>

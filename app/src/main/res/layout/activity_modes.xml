@@ -7,36 +7,39 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="160dp">
+        android:layout_height="120dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="Modes"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:text="&lt;&lt; MODES &gt;&gt;"
             android:textColor="@color/textColor"
-            android:textSize="22sp"
+            android:textSize="24sp"
             android:textStyle="bold" />
     </RelativeLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingLeft="40dp"
-            android:paddingRight="40dp">
+            android:paddingRight="40dp"
+            android:paddingTop="40dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:onClick="toNormal"
-                android:padding="10dp"
+                android:padding="12dp"
                 android:text="Normal"
                 android:textAlignment="center"
                 android:textColor="@color/textColor"
@@ -44,17 +47,56 @@
                 android:textStyle="bold" />
 
             <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:onClick="toDirection"
+            android:padding="12dp"
+            android:text="Direction"
+            android:textAlignment="center"
+            android:textColor="@color/textColor"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+            <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:onClick="toDirection"
+            android:padding="12dp"
+            android:text="Liar"
+            android:textAlignment="center"
+            android:textColor="@color/textColor"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:onClick="toDirection"
-                android:padding="10dp"
-                android:text="Direction"
+                android:onClick="toGloo"
+                android:text="hi"
                 android:textAlignment="center"
-                android:textColor="@color/textColor"
+                android:textColor="@color/textBackground"
                 android:textSize="22sp"
                 android:textStyle="bold" />
         </LinearLayout>
-    </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:padding="12dp"
+                android:layout_centerHorizontal="true"
+                android:text="(Did you know... 5 is the best number of all.)"
+                android:textAlignment="center"
+                android:textColor="@color/textColor"
+                android:textSize="12sp"
+                android:textStyle="bold"/>
+        </RelativeLayout>
+    </LinearLayout>
 
 </LinearLayout>
