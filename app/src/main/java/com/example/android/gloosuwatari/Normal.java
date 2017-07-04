@@ -71,9 +71,7 @@ public class Normal extends AppCompatActivity {
                         float lie = rand.nextFloat();
 
                         if (dist <= halffat) {
-                            hintTextView.setText("You got it!\n"
-                                    + "click:" + x + "," + y +
-                                    "\n Gloo:" + GlooX + "," + GlooY);
+                            hintTextView.setText("You got it!\n");
                             glooImageView.setX(GlooX - halffat);
                             glooImageView.setY(GlooY - halffat);
                             glooImageView.getLayoutParams().height = fat + 20;
@@ -85,30 +83,18 @@ public class Normal extends AppCompatActivity {
                             float chance = rand.nextFloat();
 
                             if (chance <= 0.1) {
-                                hintTextView.setText("Almost!\n"
-                                        + "click:" + x + "," + y +
-                                        "\n Gloo:" + GlooX + "," + GlooY);
+                                hintTextView.setText("Almost!");
                             } else if (chance <= 0.3) {
-                                hintTextView.setText("Close..\n"
-                                        + "click:" + x + "," + y +
-                                        "\n Gloo:" + GlooX + "," + GlooY);
+                                hintTextView.setText("Close..");
                             } else {
-                                hintTextView.setText("Try again.\n"
-                                        + "click:" + x + "," + y +
-                                        "\n Gloo:" + GlooX + "," + GlooY);
+                                hintTextView.setText("Try again.");
                             }
                         } else if (dist <= fat * 1.5) {
-                            hintTextView.setText("Almost!\n"
-                                    + "click:" + x + "," + y +
-                                    "\n Gloo:" + GlooX + "," + GlooY);
+                            hintTextView.setText("Almost!");
                         } else if (dist <= fat * 2.5) {
-                            hintTextView.setText("Close..\n"
-                                    + "click:" + x + "," + y +
-                                    "\n Gloo:" + GlooX + "," + GlooY);
+                            hintTextView.setText("Close..");
                         } else {
-                            hintTextView.setText("Try again.\n"
-                                    + "click:" + x + "," + y +
-                                    "\n Gloo:" + GlooX + "," + GlooY);
+                            hintTextView.setText("Try again.");
                         }
                         clickCount++;
                     }

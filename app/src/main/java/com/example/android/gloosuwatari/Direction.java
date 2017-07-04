@@ -78,9 +78,7 @@ public class Direction extends AppCompatActivity {
 
                         // Check for found, then liar, then normal operation
                         if (dist <= halffat) {
-                            hintTextView.setText("You got it!\n"
-                                    + "click:" + x + "," + y +
-                                    "\n Gloo:" + GlooX + "," + GlooY);
+                            hintTextView.setText("You got it!\n");
                             glooImageView.setX(GlooX - halffat);
                             glooImageView.setY(GlooY - halffat);
                             glooImageView.getLayoutParams().height = fat + 20;
