@@ -17,8 +17,8 @@ public class Normal extends AppCompatActivity {
     float x, y = 0;
     int width, height;
     Random rand = new Random();
-    int fat = 160;
-    int halffat = fat / 2;
+    int fat;
+    int halffat;
     public int clickCount = 0;
     boolean found = false;
     boolean liar = false;
@@ -48,8 +48,10 @@ public class Normal extends AppCompatActivity {
                     x = event.getX();
                     y = event.getY();
 
+                    wrong = 0;
+
                     // Go to congrats page
-                    if (found == true) {
+                    if (found) {
                         toWin();
                     } else {
                         // Normal game play and hint
@@ -120,8 +122,9 @@ public class Normal extends AppCompatActivity {
 
     int wrong = 0;
 
+    // Troll messages to display if user click in hint box, plus potential "crash"
     public void wrongClicky(View view) {
-        if (found == true) {
+        if (found) {
             toWin();
         } else {
             TextView hintTextView = (TextView) findViewById(R.id.hintTextView);
@@ -160,13 +163,19 @@ public class Normal extends AppCompatActivity {
     public void setDifficulty() {
         if (level == 1) {
             fat = 280;
+            halffat = fat/2;
         } else if (level == 2) {
             fat = 220;
+            halffat = fat/2;
         } else if (level == 3) {
             fat = 160;
+            halffat = fat/2;
         } else if (level == 4) {
             fat = 100;
+            halffat = fat/2;
         } else if (level == 5){
+            fat = 160;
+            halffat = fat/2;
             liar = true;
         } else {
             Intent crash = new Intent(this, Crash.class);

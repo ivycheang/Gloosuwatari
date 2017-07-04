@@ -49,8 +49,10 @@ public class Direction extends AppCompatActivity {
                     x = event.getX();
                     y = event.getY();
 
+                    wrong = 0;
+
                     // Go to congrats page
-                    if (found == true) {
+                    if (found) {
                         toWin();
                     } else {
                         // Direction game play and hint
@@ -130,7 +132,7 @@ public class Direction extends AppCompatActivity {
     int wrong = 0;
 
     public void wrongClicky(View view) {
-        if (found == true) {
+        if (found) {
             toWin();
         } else {
             TextView hintTextView = (TextView) findViewById(R.id.hintTextView);
@@ -169,13 +171,19 @@ public class Direction extends AppCompatActivity {
     public void setDifficulty() {
         if (level == 1) {
             fat = 280;
+            halffat = fat/2;
         } else if (level == 2) {
             fat = 220;
+            halffat = fat/2;
         } else if (level == 3) {
             fat = 160;
+            halffat = fat/2;
         } else if (level == 4) {
             fat = 100;
-        } else if (level == 5) {
+            halffat = fat/2;
+        } else if (level == 5){
+            fat = 160;
+            halffat = fat/2;
             liar = true;
         } else {
             Intent crash = new Intent(this, Crash.class);
