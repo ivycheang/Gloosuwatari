@@ -76,7 +76,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:padding="12dp"
-            android:text="(Did you know... 5 is the best number of all =] =])"
+            android:text="(Did you know... 10 is the best number of all =] =])"
             android:textAlignment="center"
             android:textColor="@color/textColor"
             android:textSize="12sp"

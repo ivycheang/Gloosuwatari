@@ -21,15 +21,15 @@ public class Win extends AppCompatActivity {
             congratsTextView.setText("Uh..... we are dealing with some kinda of technical difficulty... Or you are a God, one of the above...");
         } else if (clickCount == 1) {
             congratsTextView.setText("HOLE IN ONE!!\nNow aren't YOU a lucky one? Ever consider buying lottery?");
-        } else if (clickCount < 5) {
+        } else if (clickCount < 10) {
             congratsTextView.setText("You did it in " + clickCount + " tries!\nAmazing!!");
-        } else if (clickCount == 5) {
+        } else if (clickCount == 10) {
             congratsTextView.setText("You did it in " + clickCount + " tries.\nYou are good at this ya da ya da ya da ya da...\nIf you are so good, see if you can find the hidden button on the modes page.");
-        } else if (clickCount <= 10) {
-            congratsTextView.setText("You did it in " + clickCount + " tries!\nGreat job!");
         } else if (clickCount <= 20) {
-            congratsTextView.setText("You did it in " + clickCount + " tries.\nNeat.");
+            congratsTextView.setText("You did it in " + clickCount + " tries!\nGreat job!");
         } else if (clickCount <= 40) {
+            congratsTextView.setText("You did it in " + clickCount + " tries.\nNeat.");
+        } else if (clickCount <= 80) {
             congratsTextView.setText("You did it in " + clickCount + " tries.\nMaybe try a little harder next time.");
         } else {
             congratsTextView.setText("You did it in " + clickCount + " tries....\nYou don't really have a knack for this do you...");
