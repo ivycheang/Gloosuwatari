@@ -14,7 +14,7 @@ public class Crash extends AppCompatActivity {
     }
 
     public void toStart(View view) {
-        Intent start = new Intent(this, Normal.class);
+        Intent start = new Intent(this, Start.class);
         startActivity(start);
     }
 

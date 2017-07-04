@@ -43,15 +43,16 @@ public class Win extends AppCompatActivity {
 
     public void toGame(View view) {
         int mode = getIntent().getIntExtra("Mode", 0);
+        Intent game;
         if (mode == 1) {
-            Intent normal = new Intent(this, Normal.class);
-            startActivity(normal);
+            game = new Intent(this, Normal.class);
         } else if (mode == 2) {
-            Intent direction = new Intent(this, Direction.class);
-            startActivity(direction);
+            game = new Intent(this, Direction.class);
         } else {
-            Intent crash = new Intent(this, Crash.class);
-            startActivity(crash);
+            game = new Intent(this, Crash.class);
         }
+
+        game.putExtra("Level", getIntent().getIntExtra("Level", 0));
+        startActivity(game);
     }
 }

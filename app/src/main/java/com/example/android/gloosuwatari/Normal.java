@@ -1,8 +1,6 @@
 package com.example.android.gloosuwatari;
 
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,11 +21,17 @@ public class Normal extends AppCompatActivity {
     int halffat = fat / 2;
     public int clickCount = 0;
     boolean found = false;
+    boolean liar = false;
+    int level;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_normal);
+        setContentView(R.layout.activity_game);
+
+        // Setup which level of game is being played
+        level = getIntent().getIntExtra("Level", 0);
+        setDifficulty();
 
         TextView hintTextView = (TextView) findViewById(R.id.hintTextView);
 
@@ -46,51 +50,66 @@ public class Normal extends AppCompatActivity {
 
                     // Go to congrats page
                     if (found == true) {
-                        Intent win = new Intent(getBaseContext(), Win.class);
-                        win.putExtra("clickCount", clickCount);
-                        win.putExtra("Mode", 1);
-                        startActivity(win);
-                    }
-
-                    // Normal game play and hint
-                    TextView hintTextView = (TextView) findViewById(R.id.hintTextView);
-                    ImageView glooImageView = (ImageView) findViewById(R.id.gloo);
-
-                    width = blackTextView.getWidth();
-                    height = blackTextView.getHeight();
-
-                    float GlooX = glooX * (width - fat) + halffat;
-                    float GlooY = glooY * (height - fat) + halffat;
-
-                    double dist = Math.sqrt(
-                            Math.pow((x - GlooX), 2.0) +
-                                    Math.pow((y - GlooY), 2.0));
-
-                    if (dist <= halffat) {
-                        hintTextView.setText("You got it!\n"
-                                + "click:" + x + "," + y +
-                                "\n Gloo:" + GlooX + "," + GlooY);
-                        glooImageView.setX(GlooX - halffat);
-                        glooImageView.setY(GlooY - halffat);
-                        glooImageView.getLayoutParams().height = fat + 10;
-                        glooImageView.getLayoutParams().width = fat + 10;
-                        glooImageView.setImageResource(R.drawable.gloo);
-                        blackTextView.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.white));
-                        found = true;
-                    } else if (dist <= fat * 1.5) {
-                        hintTextView.setText("Almost!\n"
-                                + "click:" + x + "," + y +
-                                "\n Gloo:" + GlooX + "," + GlooY);
-                    } else if (dist <= fat * 2.5) {
-                        hintTextView.setText("Close..\n"
-                                + "click:" + x + "," + y +
-                                "\n Gloo:" + GlooX + "," + GlooY);
+                        toWin();
                     } else {
-                        hintTextView.setText("Try again.\n"
-                                + "click:" + x + "," + y +
-                                "\n Gloo:" + GlooX + "," + GlooY);
+                        // Normal game play and hint
+                        TextView hintTextView = (TextView) findViewById(R.id.hintTextView);
+                        ImageView glooImageView = (ImageView) findViewById(R.id.gloo);
+
+                        width = blackTextView.getWidth();
+                        height = blackTextView.getHeight();
+
+                        float GlooX = glooX * (width - fat) + halffat;
+                        float GlooY = glooY * (height - fat) + halffat;
+
+                        double dist = Math.sqrt(
+                                Math.pow((x - GlooX), 2.0) +
+                                        Math.pow((y - GlooY), 2.0));
+
+                        float lie = rand.nextFloat();
+
+                        if (dist <= halffat) {
+                            hintTextView.setText("You got it!\n"
+                                    + "click:" + x + "," + y +
+                                    "\n Gloo:" + GlooX + "," + GlooY);
+                            glooImageView.setX(GlooX - halffat);
+                            glooImageView.setY(GlooY - halffat);
+                            glooImageView.getLayoutParams().height = fat + 20;
+                            glooImageView.getLayoutParams().width = fat + 20;
+                            glooImageView.setImageResource(R.drawable.gloo);
+                            blackTextView.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.white));
+                            found = true;
+                        } else if (liar && lie <= 0.4) {
+                            float chance = rand.nextFloat();
+
+                            if (chance <= 0.1) {
+                                hintTextView.setText("Almost!\n"
+                                        + "click:" + x + "," + y +
+                                        "\n Gloo:" + GlooX + "," + GlooY);
+                            } else if (chance <= 0.3) {
+                                hintTextView.setText("Close..\n"
+                                        + "click:" + x + "," + y +
+                                        "\n Gloo:" + GlooX + "," + GlooY);
+                            } else {
+                                hintTextView.setText("Try again.\n"
+                                        + "click:" + x + "," + y +
+                                        "\n Gloo:" + GlooX + "," + GlooY);
+                            }
+                        } else if (dist <= fat * 1.5) {
+                            hintTextView.setText("Almost!\n"
+                                    + "click:" + x + "," + y +
+                                    "\n Gloo:" + GlooX + "," + GlooY);
+                        } else if (dist <= fat * 2.5) {
+                            hintTextView.setText("Close..\n"
+                                    + "click:" + x + "," + y +
+                                    "\n Gloo:" + GlooX + "," + GlooY);
+                        } else {
+                            hintTextView.setText("Try again.\n"
+                                    + "click:" + x + "," + y +
+                                    "\n Gloo:" + GlooX + "," + GlooY);
+                        }
+                        clickCount++;
                     }
-                    clickCount++;
                 }
                 return true;
             }
@@ -103,9 +122,7 @@ public class Normal extends AppCompatActivity {
 
     public void wrongClicky(View view) {
         if (found == true) {
-            Intent win = new Intent(getBaseContext(), Win.class);
-            win.putExtra("clickCount", clickCount);
-            startActivity(win);
+            toWin();
         } else {
             TextView hintTextView = (TextView) findViewById(R.id.hintTextView);
             if (wrong == 0) {
@@ -129,6 +146,31 @@ public class Normal extends AppCompatActivity {
             }
             wrong++;
             wrong = wrong % 6;
+        }
+    }
+
+    public void toWin() {
+        Intent win = new Intent(getBaseContext(), Win.class);
+        win.putExtra("clickCount", clickCount);
+        win.putExtra("Mode", 1);
+        win.putExtra("Level", level);
+        startActivity(win);
+    }
+
+    public void setDifficulty() {
+        if (level == 1) {
+            fat = 280;
+        } else if (level == 2) {
+            fat = 220;
+        } else if (level == 3) {
+            fat = 160;
+        } else if (level == 4) {
+            fat = 100;
+        } else if (level == 5){
+            liar = true;
+        } else {
+            Intent crash = new Intent(this, Crash.class);
+            startActivity(crash);
         }
     }
 

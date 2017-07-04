@@ -22,7 +22,8 @@
         <activity android:name=".Intro" />
         <activity android:name=".Modes" />
         <activity android:name=".Direction" />
-        <activity android:name=".Gloo"></activity>
+        <activity android:name=".Gloo" />
+        <activity android:name=".Levels"></activity>
     </application>
 
 </manifest>

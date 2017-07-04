@@ -10,11 +10,11 @@
         android:layout_height="120dp">
 
         <TextView
+            android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:text="&lt;&lt; MODES &gt;&gt;"
             android:textColor="@color/textColor"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -30,38 +30,68 @@
         android:paddingTop="60dp">
 
         <TextView
-            android:id="@+id/normal"
+            android:id="@+id/level_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:onClick="toLevels"
+            android:onClick="toGame"
             android:padding="12dp"
-            android:text="Normal"
+            android:text="Level 1"
             android:textAlignment="center"
             android:textColor="@color/textColor"
             android:textSize="22sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/direction"
+            android:id="@+id/level_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:onClick="toLevels"
+            android:onClick="toGame"
             android:padding="12dp"
-            android:text="Direction"
+            android:text="Level 2"
             android:textAlignment="center"
             android:textColor="@color/textColor"
             android:textSize="22sp"
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/level_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="toGloo"
-            android:text="hi"
+            android:layout_gravity="center_horizontal"
+            android:onClick="toGame"
+            android:padding="12dp"
+            android:text="Level 3"
             android:textAlignment="center"
-            android:textColor="@color/textBackground"
+            android:textColor="@color/textColor"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/level_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:onClick="toGame"
+            android:padding="12dp"
+            android:text="Level 4"
+            android:textAlignment="center"
+            android:textColor="@color/textColor"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <TextView
+
+            android:id="@+id/liar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:onClick="toGame"
+            android:padding="12dp"
+            android:text="Liar"
+            android:textAlignment="center"
+            android:textColor="@color/textColor"
             android:textSize="22sp"
             android:textStyle="bold" />
     </LinearLayout>
@@ -73,15 +103,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:padding="12dp"
-            android:text="(Did you know... 5 is the best number of all =] =])"
-            android:textAlignment="center"
+            android:layout_centerVertical="true"
+            android:onClick="toModes"
+            android:paddingLeft="20dp"
+            android:text="&lt; Back"
             android:textColor="@color/textColor"
-            android:textSize="12sp"
+            android:textSize="24sp"
             android:textStyle="bold" />
     </RelativeLayout>
-
 
 </LinearLayout>

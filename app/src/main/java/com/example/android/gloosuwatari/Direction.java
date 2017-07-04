@@ -1,8 +1,6 @@
 package com.example.android.gloosuwatari;
 
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,11 +23,16 @@ public class Direction extends AppCompatActivity {
     int halffat = fat / 2;
     public int clickCount = 0;
     boolean found = false;
+    boolean liar = false;
+    int level;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_normal);
+        setContentView(R.layout.activity_game);
+
+        level = getIntent().getIntExtra("Level", 0);
+        setDifficulty();
 
         TextView hintTextView = (TextView) findViewById(R.id.hintTextView);
 
@@ -48,61 +51,74 @@ public class Direction extends AppCompatActivity {
 
                     // Go to congrats page
                     if (found == true) {
-                        Intent win = new Intent(getBaseContext(), Win.class);
-                        win.putExtra("clickCount", clickCount);
-                        win.putExtra("Mode", 2);
-                        startActivity(win);
-                    }
-
-                    // Direction game play and hint
-                    TextView hintTextView = (TextView) findViewById(R.id.hintTextView);
-                    ImageView glooImageView = (ImageView) findViewById(R.id.gloo);
-
-                    width = blackTextView.getWidth();
-                    height = blackTextView.getHeight();
-
-                    float GlooX = glooX * (width - fat) + halffat;
-                    float GlooY = glooY * (height - fat) + halffat;
-
-                    double dist = Math.sqrt(
-                            Math.pow((x - GlooX), 2.0) +
-                                    Math.pow((y - GlooY), 2.0));
-
-                    double xdist = x - GlooX;
-                    double ydist = y - GlooY;
-                    float dir = rand.nextFloat();
-
-                    if (dist <= halffat) {
-                        hintTextView.setText("You got it!\n"
-                                + "click:" + x + "," + y +
-                                "\n Gloo:" + GlooX + "," + GlooY);
-                        glooImageView.setX(GlooX - halffat);
-                        glooImageView.setY(GlooY - halffat);
-                        glooImageView.getLayoutParams().height = fat + 10;
-                        glooImageView.getLayoutParams().width = fat + 10;
-                        glooImageView.setImageResource(R.drawable.gloo);
-                        blackTextView.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.white));
-                        found = true;
-                    } else if (dir <= 0.5 && abs(xdist) > 50) {
-                        if (xdist >= 0) {
-                            hintTextView.setText("Go a bit left.");
-                        } else {
-                            hintTextView.setText("Maybe more to the right.");
-                        }
+                        toWin();
                     } else {
-                        if (abs(ydist) <= 50) {
+                        // Direction game play and hint
+                        TextView hintTextView = (TextView) findViewById(R.id.hintTextView);
+                        ImageView glooImageView = (ImageView) findViewById(R.id.gloo);
+
+                        width = blackTextView.getWidth();
+                        height = blackTextView.getHeight();
+
+                        float GlooX = glooX * (width - fat) + halffat;
+                        float GlooY = glooY * (height - fat) + halffat;
+
+                        double dist = Math.sqrt(
+                                Math.pow((x - GlooX), 2.0) +
+                                        Math.pow((y - GlooY), 2.0));
+
+                        double xdist = x - GlooX;
+                        double ydist = y - GlooY;
+                        float dir = rand.nextFloat();
+
+                        float lie = rand.nextFloat();
+
+
+                        // Check for found, then liar, then normal operation
+                        if (dist <= halffat) {
+                            hintTextView.setText("You got it!\n"
+                                    + "click:" + x + "," + y +
+                                    "\n Gloo:" + GlooX + "," + GlooY);
+                            glooImageView.setX(GlooX - halffat);
+                            glooImageView.setY(GlooY - halffat);
+                            glooImageView.getLayoutParams().height = fat + 20;
+                            glooImageView.getLayoutParams().width = fat + 20;
+                            glooImageView.setImageResource(R.drawable.gloo);
+                            blackTextView.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.white));
+                            found = true;
+                        } else if (liar && lie <= 0.4) {
+                            float chance = rand.nextFloat();
+
+                            if (chance <= 0.25) {
+                                hintTextView.setText("Go a bit left.");
+                            } else if (chance <= 0.5) {
+                                hintTextView.setText("Maybe more to the right.");
+                            } else if (chance <= 0.75) {
+                                hintTextView.setText("Just a bit higher..");
+                            } else {
+                                hintTextView.setText("Go lower.");
+                            }
+                        } else if (dir <= 0.5 && abs(xdist) > 50) {
                             if (xdist >= 0) {
                                 hintTextView.setText("Go a bit left.");
                             } else {
                                 hintTextView.setText("Maybe more to the right.");
                             }
-                        } else if (ydist >= 0) {
-                            hintTextView.setText("Just a bit higher..");
                         } else {
-                            hintTextView.setText("Go lower.");
+                            if (abs(ydist) <= 50) {
+                                if (xdist >= 0) {
+                                    hintTextView.setText("Go a bit left.");
+                                } else {
+                                    hintTextView.setText("Maybe more to the right.");
+                                }
+                            } else if (ydist >= 0) {
+                                hintTextView.setText("Just a bit higher..");
+                            } else {
+                                hintTextView.setText("Go lower.");
+                            }
                         }
+                        clickCount++;
                     }
-                    clickCount++;
                 }
                 return true;
             }
@@ -115,9 +131,7 @@ public class Direction extends AppCompatActivity {
 
     public void wrongClicky(View view) {
         if (found == true) {
-            Intent win = new Intent(getBaseContext(), Win.class);
-            win.putExtra("clickCount", clickCount);
-            startActivity(win);
+            toWin();
         } else {
             TextView hintTextView = (TextView) findViewById(R.id.hintTextView);
             if (wrong == 0) {
@@ -141,6 +155,31 @@ public class Direction extends AppCompatActivity {
             }
             wrong++;
             wrong = wrong % 6;
+        }
+    }
+
+    public void toWin() {
+        Intent win = new Intent(getBaseContext(), Win.class);
+        win.putExtra("clickCount", clickCount);
+        win.putExtra("Mode", 2);
+        win.putExtra("Level", level);
+        startActivity(win);
+    }
+
+    public void setDifficulty() {
+        if (level == 1) {
+            fat = 280;
+        } else if (level == 2) {
+            fat = 220;
+        } else if (level == 3) {
+            fat = 160;
+        } else if (level == 4) {
+            fat = 100;
+        } else if (level == 5) {
+            liar = true;
+        } else {
+            Intent crash = new Intent(this, Crash.class);
+            startActivity(crash);
         }
     }
 
